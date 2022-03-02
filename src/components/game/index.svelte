@@ -1,32 +1,51 @@
 <script>
-    import Game from "./GameLogic/index"
-    let gameBoard = Game.generateGameBoard();
-    let snake = null;
+    import Game from "./GameLogic/board"
+    let game;
+    let board;
+    let interval;
+    let playing = true;
 
         function startGame() {
-            gameBoard = Game.generateGameBoard()
-            snake = Game.startSnake(gameBoard)
+            playing = true;
+            game = new Game()
+            board = game.board
+            interval = setInterval(() => gameLoop(), 1000);
         }
-        console.log(gameBoard)
+
+        function gameLoop() {
+            const move = game.snakeMovement()
+            if (!move) {
+                playing = false;
+                clearInterval(interval)
+            }
+            board = game.board
+        }
+
 </script>
 
 
 <section>
-{#each gameBoard as row, i (i)}
-    <div class="row">
-        {#each row as rowBlock, j (`${i}-${j}`)}
-            <div class="{rowBlock ? "snake" : "block"}">
-                
-            </div>            
-        {/each}
-    </div>
-{/each}
+{#if game} 
+    {#each game.board as row, i (i)}
+        <div class="row">
+            {#each row as rowBlock, j (`${i}-${j}`)}
+                {#if rowBlock !== ""}
+                    <span class="snake"></span>
+                {:else} 
+                    <span class="block"></span>
+                {/if}  
+            {/each}
+        </div>
+    {/each}
+{/if}
 </section>
 
 <br />
 
-{#if !snake }
+{#if !game }
     <button on:click={startGame}>Start Game</button>
+{:else if game && !playing} 
+    <button on:click={startGame}>start over</button>
 {/if}
 
 <style>
@@ -43,7 +62,7 @@
     }
 
     .snake {
-        widows: 20px;
+        width: 20px;
         height: 20px;
         background-color: aqua;
     }
