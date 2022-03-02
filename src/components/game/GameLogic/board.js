@@ -9,7 +9,7 @@ export default class Game {
 
     console.log(this.travelDirection);
     document.addEventListener("keypress", (e) => {
-      console.log(e.code);
+      this.changeDirection(e.key);
     });
   }
 
@@ -42,6 +42,21 @@ export default class Game {
 
     // return options[randomOption];
     return "up";
+  }
+
+  changeDirection(key) {
+    switch (key) {
+      case "w":
+        return (this.travelDirection = "up");
+      case "s":
+        return (this.travelDirection = "down");
+      case "d":
+        return (this.travelDirection = "right");
+      case "a":
+        return (this.travelDirection = "left");
+      default:
+        return;
+    }
   }
 
   snakeMovement() {

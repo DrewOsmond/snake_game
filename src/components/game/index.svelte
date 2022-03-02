@@ -9,7 +9,7 @@
             playing = true;
             game = new Game()
             board = game.board
-            interval = setInterval(() => gameLoop(), 1000);
+            interval = setInterval(() => gameLoop(), 200);
         }
 
         function gameLoop() {
@@ -26,7 +26,7 @@
 
 <section>
 {#if game} 
-    {#each game.board as row, i (i)}
+    {#each board as row, i (i)}
         <div class="row">
             {#each row as rowBlock, j (`${i}-${j}`)}
                 {#if rowBlock !== ""}
