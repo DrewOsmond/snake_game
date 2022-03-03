@@ -20,7 +20,6 @@
 
         function gameLoop() {
             const move = game.snakeMovement()
-            console.log(move)
             if (!move) {
                 playing = false;
                 clearInterval(interval)
