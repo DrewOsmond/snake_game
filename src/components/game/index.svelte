@@ -9,11 +9,12 @@
             playing = true;
             game = new Game()
             board = game.board
-            interval = setInterval(() => gameLoop(), 200);
+            interval = setInterval(() => gameLoop(), 50);
         }
 
         function gameLoop() {
             const move = game.snakeMovement()
+            
             if (!move) {
                 playing = false;
                 clearInterval(interval)
@@ -29,8 +30,10 @@
     {#each board as row, i (i)}
         <div class="row">
             {#each row as rowBlock, j (`${i}-${j}`)}
-                {#if rowBlock !== ""}
+                {#if rowBlock === "snek"}
                     <span class="snake"></span>
+                    {:else if rowBlock === "."}
+                    <span class="dot"></span>
                 {:else} 
                     <span class="block"></span>
                 {/if}  
@@ -65,6 +68,11 @@
         width: 20px;
         height: 20px;
         background-color: aqua;
+    }
+    .dot {
+        width: 20px;
+        height: 20px;
+        background-color: green;
     }
    
 </style>

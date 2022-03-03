@@ -7,7 +7,8 @@ export default class Game {
     this.travelDirection = this.startRandomDirection();
     this.snake = this.placeSnake();
 
-    console.log(this.travelDirection);
+    this.spawnDot();
+
     document.addEventListener("keypress", (e) => {
       this.changeDirection(e.key);
     });
@@ -41,7 +42,7 @@ export default class Game {
     const randomOption = Math.floor(Math.random() * options.length);
 
     // return options[randomOption];
-    return "up";
+    return options[randomOption];
   }
 
   changeDirection(key) {
@@ -70,6 +71,23 @@ export default class Game {
       this.status = false;
       return false;
     }
+
+    const [moved, ateDot] = move;
+    if (ateDot) {
+      this.spawnDot();
+    }
     return true;
+  }
+
+  spawnDot() {
+    let x = Math.floor(Math.random() * 28) + 1;
+    let y = Math.floor(Math.random() * 28) + 1;
+
+    while (this.board[x][y] !== "") {
+      y = Math.floor(Math.random() * 28) + 1;
+      x = Math.floor(Math.random() * 28) + 1;
+    }
+
+    this.board[x][y] = ".";
   }
 }
