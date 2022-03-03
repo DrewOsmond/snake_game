@@ -48,13 +48,22 @@ export default class Game {
   changeDirection(key) {
     switch (key) {
       case "w":
-        return (this.travelDirection = "up");
+        return this.travelDirection !== "down"
+          ? (this.travelDirection = "up")
+          : undefined;
+
       case "s":
-        return (this.travelDirection = "down");
+        return this.travelDirection !== "up"
+          ? (this.travelDirection = "down")
+          : undefined;
       case "d":
-        return (this.travelDirection = "right");
+        return this.travelDirection !== "left"
+          ? (this.travelDirection = "right")
+          : undefined;
       case "a":
-        return (this.travelDirection = "left");
+        return this.travelDirection !== "right"
+          ? (this.travelDirection = "left")
+          : undefined;
       default:
         return;
     }

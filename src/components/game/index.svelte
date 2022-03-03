@@ -9,7 +9,7 @@
             playing = true;
             game = new Game()
             board = game.board
-            interval = setInterval(() => gameLoop(), 50);
+            interval = setInterval(() => gameLoop(), 70);
         }
 
         function gameLoop() {
@@ -24,39 +24,40 @@
 
 </script>
 
-
-<section>
-{#if game} 
-    {#each board as row, i (i)}
-        <div class="row">
-            {#each row as rowBlock, j (`${i}-${j}`)}
-                {#if rowBlock === "snek"}
-                    <span class="snake"></span>
-                    {:else if rowBlock === "."}
-                    <span class="dot"></span>
-                {:else} 
-                    <span class="block"></span>
-                {/if}  
-            {/each}
-        </div>
-    {/each}
-{/if}
-</section>
-
-<br />
-
 {#if !game }
     <button on:click={startGame}>Start Game</button>
 {:else if game && !playing} 
     <button on:click={startGame}>start over</button>
 {/if}
+<section>
+<div class="gameBoard">
+    {#if game} 
+        {#each board as row, i (i)}
+            <div class="row">
+                {#each row as rowBlock, j (`${i}-${j}`)}
+                 {#if rowBlock === "snek"}
+                     <span class="snake"></span>
+                        {:else if rowBlock === "."}
+                     <span class="dot"></span>
+                  {:else} 
+                     <span class="block"></span>
+                {/if}  
+                {/each}
+            </div>
+        {/each}
+    {/if}
+</div>
+</section>
+
+<br />
+
 
 <style>
     .block {
         width: 20px;
         height: 20px;
         /* margin-right: 1px; */
-        background-color: red;
+        background-color: rgb(88, 77, 77);
         
     }
 
@@ -67,12 +68,20 @@
     .snake {
         width: 20px;
         height: 20px;
-        background-color: aqua;
+        background-color: rgb(133, 224, 163);
     }
     .dot {
         width: 20px;
         height: 20px;
-        background-color: green;
+        background-color: rgb(238, 49, 159);
     }
    
+   .gameBoard {
+       width: 99vw;
+       height: 80vh;
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+   }
 </style>
