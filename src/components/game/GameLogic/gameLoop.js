@@ -87,6 +87,6 @@ export default class Loop {
     const [xToRemove, yToRemove] = snake.pop();
     board[xToRemove][yToRemove] = "";
 
-    return [true];
+    return [true, false];
   }
 }

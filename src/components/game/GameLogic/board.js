@@ -85,7 +85,7 @@ export default class Game {
     if (ateDot) {
       this.spawnDot();
     }
-    return true;
+    return move;
   }
 
   spawnDot() {

@@ -1,24 +1,33 @@
 <script>
     import Game from "./GameLogic/board"
-    let game;
-    let board;
+    let firstGame = true;
+    let game = new Game();
+    let board = game.board;
     let interval;
-    let playing = true;
+    let playing = false;
+    let score = 0;
 
         function startGame() {
-            playing = true;
-            game = new Game()
-            board = game.board
+            score = 0
             interval = setInterval(() => gameLoop(), 70);
+            if (!firstGame) {
+                game = new Game();
+                board = game.board;
+            } else {
+                firstGame = false;
+            }
         }
 
         function gameLoop() {
             const move = game.snakeMovement()
-            
+            console.log(move)
             if (!move) {
                 playing = false;
                 clearInterval(interval)
+                return 
             }
+            const [_moved, ate] = move
+            if (ate) score++
             board = game.board
         }
 
@@ -31,6 +40,7 @@
 {/if}
 <section>
 <div class="gameBoard">
+    <h3>Score: {score}</h3>
     {#if game} 
         {#each board as row, i (i)}
             <div class="row">
